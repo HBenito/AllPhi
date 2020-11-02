@@ -17,9 +17,10 @@ namespace Register.Api.Data.Repositories
             _context = context;
         }
 
-        public async Task AddCompany(Company company)
+        public async Task<Company> AddCompany(Company company)
         {
             await _context.Companies.AddAsync(company);
+            return company;
         }
 
         public async Task<int> AddEmployee(Employee employee)
@@ -43,6 +44,10 @@ namespace Register.Api.Data.Repositories
         public async Task<List<Company>> GetCompanies()
         {
             return await _context.Companies.ToListAsync();
+        }
+        public async Task<List<Employee>> GetEmployees()
+        {
+            return await _context.Employees.ToListAsync();
         }
 
         public async Task<List<Company>> GetCompaniesByName(string name)
@@ -96,6 +101,11 @@ namespace Register.Api.Data.Repositories
             _context.Remove(await _context.EmployeeCompanies.Where(x => x.EmployeeId == employeeId && x.CompanyId == companyId).FirstOrDefaultAsync());
             if (!await _context.EmployeeCompanies.AnyAsync(x => x.EmployeeId == employeeId))
                 _context.Remove(await _context.Employees.Where(x => x.Id == employeeId).FirstOrDefaultAsync());
+        }
+
+        public async Task<Company> GetCompanyById(int Id)
+        {
+            return await _context.Companies.Where(x => x.Id == Id).FirstOrDefaultAsync();
         }
     }
 }

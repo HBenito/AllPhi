@@ -9,10 +9,11 @@ namespace Register.Api.Data.Interfaces
     public interface IAdministrationRepository
     {
         Task<List<Company>> GetCompanies();
-        Task AddCompany(Company company);
+        Task<Company> AddCompany(Company company);
         Task RemoveCompany(int companyId);
         Task<List<Company>> GetCompaniesByName(string name);
         Task<List<EmployeeCompany>> GetEmployees(int companyId);
+        Task<List<Employee>> GetEmployees();
         Task<List<Employee>> FindEmployees(string firstName, string lastName);
         Task<int> AddEmployee(Employee employee);
         Task AddEmployeeToCompany(EmployeeCompany employeeCompany);
@@ -22,5 +23,6 @@ namespace Register.Api.Data.Interfaces
         Task<List<Visit>> GetVisitorsByEmail(string email);
         Task<List<Visit>> GetVisitorsByCompany(int companyId);
         Task<List<Visit>> GetVisitorsByEmployee(int employeeId);
+        Task<Company> GetCompanyById(int Id);
     }
 }

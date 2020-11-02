@@ -1,0 +1,18 @@
+<div *ngIf="!new" class="flex">
+  <form class="form my-2 my-lg-0 mr-auto">
+    <input class="form-control mr-sm-2" type="text" id="search" #search placeholder="Search" aria-label="Search" required>
+    <button class="btn btn-success my-2 my-sm-0" (click)="searchEmployees(search.value)">Search</button>
+  </form>
+  <button class="btn btn-success my-2 my-sm-0" (click)="addCompany()">Add Companie</button>
+</div>
+
+<div *ngIf="new">
+  <app-employee-edit [company]="employee" (cancelEdit)="cancelEdit($event)"></app-employee-edit>
+</div>
+<div *ngIf="!new">
+  <div class="container mt-5">
+    <div *ngFor="let employee of employees">
+     <!-- <app-companie-card (openCompany)="fillCompany($event)" (removeCompany)="getCompanies()" [company]="company"></app-companie-card>-->
+    </div>  
+  </div>
+</div>

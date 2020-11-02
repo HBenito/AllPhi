@@ -1,0 +1,25 @@
+<form [formGroup]="saveCompanyForm" (ngSubmit)="save()">
+  <h2 *ngIf="company == null" class="text-center text-primary">Register</h2>
+  <h2 *ngIf="company != null" class="text-center text-primary">{{company.name}}</h2>
+  <hr>
+
+  <div class="form-group">
+    <input type="text"
+    [ngClass]="{'is-invalid': saveCompanyForm.get('name').errors 
+    && saveCompanyForm.get('name').touched}"
+    formControlName="name" 
+    class="form-control" 
+    placeholder="Company Name">
+  </div>
+  <div class="form-group text-center">
+    <button [disabled]="!saveCompanyForm.valid" class="btn btn-success" type="submit">Save</button>
+    <button (click)="cancel()">Cancel</button>
+  </div>         
+</form>
+<div>
+  <button (click)="cancel()">Add Employee</button>
+  <button (click)="cancel()">Add New Employee</button>
+</div>
+<div>
+
+</div>

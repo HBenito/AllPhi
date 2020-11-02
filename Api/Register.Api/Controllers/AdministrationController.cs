@@ -28,9 +28,22 @@ namespace Register.Api.Controllers
         public async Task<IActionResult> AddCompany(CompanyDto companyToAdd)
         {
             var company = _mapper.Map<Company>(companyToAdd);
-            await _unitOfWork.AdministrationRepository.AddCompany(company);
+            company = await _unitOfWork.AdministrationRepository.AddCompany(company);
             if (await _unitOfWork.Complete())
-                return Ok();
+                return CreatedAtRoute("GetCompany", new { controller = "Administration", id = company.Id }, company);
+
+
+            return BadRequest("something went wrong");
+        }
+
+        [HttpPost("addcompany")]
+        public async Task<IActionResult> AddEmployee(CompanyDto companyToAdd)
+        {
+            var company = _mapper.Map<Company>(companyToAdd);
+            company = await _unitOfWork.AdministrationRepository.AddCompany(company);
+            if (await _unitOfWork.Complete())
+                return CreatedAtRoute("GetCompany", new { controller = "Administration", id = company.Id }, company);
+
 
             return BadRequest("something went wrong");
         }
@@ -78,11 +91,41 @@ namespace Register.Api.Controllers
         public async Task<IActionResult> GetCompanies()
         {
             List<Company> companies = await _unitOfWork.AdministrationRepository.GetCompanies();
-            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companies);
 
-            return Ok(companiesToReturn);
+            return Ok(companies);
         }
 
+        [HttpGet("getemployes")]
+        public async Task<IActionResult> GetEmployees()
+        {
+            List<Employee> employees = await _unitOfWork.AdministrationRepository.GetEmployees();
 
+            return Ok(employees);
+        }
+
+        [HttpGet("getcompanies/{src}")]
+        public async Task<IActionResult> GetCompanies(string src)
+        {
+            List<Company> companies = await _unitOfWork.AdministrationRepository.GetCompaniesByName(src);
+
+            return Ok(companies);
+        }
+
+        [HttpGet("getcompany/{id}", Name = "GetCompany")]
+        public async Task<IActionResult> GetCompany(int id)
+        {
+            var company = await _unitOfWork.AdministrationRepository.GetCompanyById(id);
+            return Ok(company);
+        }
+
+        [HttpDelete("removecompany/{id}")]
+        public async Task<IActionResult> RemoveFriendRequest(int id)
+        {
+            await _unitOfWork.AdministrationRepository.RemoveCompany(id);
+            if(await _unitOfWork.Complete())
+                return Ok();
+
+            return BadRequest("couldn't remove company");
+        }
     }
 }
