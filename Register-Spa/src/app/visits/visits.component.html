@@ -1,0 +1,14 @@
+<div class="flex">
+  <form class="form my-2 my-lg-0 mr-auto">
+    <input class="form-control mr-sm-2" type="text" id="search" #search placeholder="Search" aria-label="Search" required>
+    <button class="btn btn-success my-2 my-sm-0" (click)="searchVisits(search.value)">Search</button>
+  </form>
+</div>
+
+<div>
+  <div class="container mt-5">
+    <div *ngFor="let visit of visits">
+      <app-visit-card (logVisitOut)="getVisits()" [visit]="visit"></app-visit-card>
+    </div>  
+  </div>
+</div>

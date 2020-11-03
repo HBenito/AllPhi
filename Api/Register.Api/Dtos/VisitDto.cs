@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Register.Api.Models
+namespace Register.Api.Dtos
 {
-    public class Employee
+    public class VisitDto
     {
-        public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public IEnumerable<EmployeeCompany> Companies { get; set; } = new List<EmployeeCompany>();
+        public string Email { get; set; }
     }
 }

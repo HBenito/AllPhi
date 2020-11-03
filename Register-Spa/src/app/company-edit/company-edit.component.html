@@ -31,6 +31,10 @@
     <div>
       {{employee.firstName}} {{employee.lastName}}    
       <button (click)="add(employee)">Add</button>
+    </div>
   </div>
-  </div>
+</div>
+<div *ngFor="let employee of companyEmployees">
+  {{employee.firstName}} {{employee.lastName}}    
+  <button>Remove</button>
 </div>

@@ -61,7 +61,7 @@ namespace Register.Api.Data.Repositories
 
         public async Task<List<EmployeeCompany>> GetEmployees(int companyId)
         {
-            return await _context.EmployeeCompanies.Where(x => x.CompanyId == companyId).Include(e => e.Employee).ToListAsync();
+            return await _context.EmployeeCompanies.Where(x => x.CompanyId == companyId).ToListAsync();
         }
 
         public async Task<List<Visit>> GetVisitors()

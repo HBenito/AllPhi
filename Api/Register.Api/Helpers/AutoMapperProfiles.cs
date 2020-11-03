@@ -16,6 +16,8 @@ namespace Register.Api.Helpers
             CreateMap<Company, CompanyDto>();
             CreateMap<Employee, EmployeeDto>();
             CreateMap<EmployeeDto, Employee>();
+            CreateMap<VisitDto, Visit>();
+            CreateMap<Visit, VisitDto>();
         }
     }
 }

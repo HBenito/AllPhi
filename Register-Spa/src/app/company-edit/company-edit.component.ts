@@ -40,7 +40,12 @@ export class CompanyEditComponent implements OnInit {
   }
 
   getCompanyEmployees(){
-
+    this.companyService.getCompanyEmployees(this.company.id).subscribe((employees: Employee[]) => {
+      this.companyEmployees = employees;
+      console.log(this.companyEmployees);
+    }, error => {
+      console.log(error);
+    });
   }
 
   cancel(){

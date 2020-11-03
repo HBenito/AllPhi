@@ -31,7 +31,7 @@ constructor(private http: HttpClient) { }
   }
 
   addEmployeeToCompany(companyId: number, employeeId: number){
-    return this.http.post(this.baseUrl + 'administration/addexistingemployee/' + employeeId + '/', companyId);
+    return this.http.post(this.baseUrl + 'administration/addexistingemployee/' + employeeId + '/' + companyId, {});
   }
 
   updateCompany(company){
@@ -39,7 +39,7 @@ constructor(private http: HttpClient) { }
   }
 
   getCompanyEmployees(companyId: number){
-    return this.http.get<Employee[]>(this.baseUrl + 'administration/getcompanies/' + companyId);
+    return this.http.get<Employee[]>(this.baseUrl + 'administration/getcompanyemployees/' + companyId);
   }
 
   removeCompany(companyId: number){

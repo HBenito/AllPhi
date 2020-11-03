@@ -8,7 +8,10 @@ namespace Register.Api.Data.Interfaces
 {
     public interface IRegisterRepository
     {
-        Task LogIn(Visit visit);
-        Task LogOut(string email);
+        Task<Visit> LogIn(Visit visit);
+        Task LogOut(int id);
+        Task<List<Visit>> GetVisits();
+        Task<List<Visit>> GetVisits(string src);
+
     }
 }

@@ -17,14 +17,25 @@ namespace Register.Api.Data.Repositories
             _context = context;
         }
 
-        public async Task LogIn(Visit visit)
+        public async Task<List<Visit>> GetVisits()
         {
-            await _context.Visits.AddAsync(visit);
+            return await _context.Visits.Where(x => x.Arrival < DateTime.Now && x.Departure > DateTime.Now).ToListAsync();
         }
 
-        public async Task LogOut(string email)
+        public async Task<List<Visit>> GetVisits(string src)
         {
-            var visitToLogOut = await _context.Visits.Where(x => x.Email == email).FirstOrDefaultAsync();
+            return await _context.Visits.Where(x => x.Arrival < DateTime.Now && x.Departure > DateTime.Now && x.Email.Contains(src)).ToListAsync();
+        }
+
+        public async Task<Visit> LogIn(Visit visit)
+        {
+            await _context.Visits.AddAsync(visit);
+            return visit;
+        }
+
+        public async Task LogOut(int id)
+        {
+            var visitToLogOut = await _context.Visits.Where(x => x.Id == id).FirstOrDefaultAsync();
             visitToLogOut.Departure = DateTime.Now;
             _context.Entry(visitToLogOut).Property(x => x.Departure).IsModified = true;
         }

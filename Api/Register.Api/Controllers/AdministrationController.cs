@@ -72,12 +72,12 @@ namespace Register.Api.Controllers
         }
 
         [HttpPost("addexistingemployee/{employeeid}/{companyid}")]
-        public async Task<IActionResult> AddExistingEmployee(int employeeid, int companeeid)
+        public async Task<IActionResult> AddExistingEmployee(int employeeid, int companyid)
         {
             EmployeeCompany employeeCompany = new EmployeeCompany
             {
                 EmployeeId = employeeid,
-                CompanyId = companeeid
+                CompanyId = companyid
             };
 
             await _unitOfWork.AdministrationRepository.AddEmployeeToCompany(employeeCompany);
@@ -102,7 +102,8 @@ namespace Register.Api.Controllers
             List<Employee> employees = new List<Employee>();
             foreach(EmployeeCompany employeeCompany in employeeCompanies)
             {
-                employees.Add(employeeCompany.Employee);
+                var employee = await _unitOfWork.AdministrationRepository.GetEmployeeById(employeeCompany.EmployeeId);
+                employees.Add(employee);
             }
 
             return Ok(employees);
