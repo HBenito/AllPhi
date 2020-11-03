@@ -14,9 +14,10 @@ import { CompanieCardComponent } from './companie-card/companie-card.component';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmpolyeeCardComponent } from './empolyee-card/empolyee-card.component';
 
 @NgModule({
-  declarations: [							
+  declarations: [								
     AppComponent,
       NavComponent,
       AdministrationComponent,
@@ -25,7 +26,8 @@ import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
       CompanieCardComponent,
       CompanyEditComponent,
       EmployeesComponent,
-      EmployeeEditComponent
+      EmployeeEditComponent,
+      EmpolyeeCardComponent
    ],
   imports: [
     BrowserModule,

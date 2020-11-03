@@ -28,7 +28,8 @@ export class EmployeeEditComponent implements OnInit {
 
   createSaveCompanyForm(){
     this.saveEmployeeForm = this.fb.group({
-      name: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]]
     });
   }
 
@@ -43,7 +44,7 @@ export class EmployeeEditComponent implements OnInit {
     else{
       if (this.saveEmployeeForm.valid){
         this.employee = Object.assign({}, this.saveEmployeeForm.value);
-        this.employeeService.addCompany(this.employee).subscribe((employee: Employee) => {
+        this.employeeService.addEmployee(this.employee).subscribe((employee: Employee) => {
           this.employee = employee;
           console.log(this.employee.id)
         }, error => {

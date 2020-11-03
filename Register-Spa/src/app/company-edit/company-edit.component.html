@@ -17,9 +17,20 @@
   </div>         
 </form>
 <div>
-  <button (click)="cancel()">Add Employee</button>
-  <button (click)="cancel()">Add New Employee</button>
+  <button (click)="setAddEmployeeState(1)">Add New Employee</button>
+  <button (click)="setAddEmployeeState(2)">Add Existing Employee</button>
 </div>
-<div>
-
+<div *ngIf="addEmployeeState == 2" >
+  <div class="flex">
+    <form class="form my-2 my-lg-0 mr-auto">
+      <input class="form-control mr-sm-2" type="text" id="search" #search placeholder="Search" aria-label="Search" required>
+      <button class="btn btn-success my-2 my-sm-0" (click)="searchEmployees(search.value)">Search</button>
+    </form>
+  </div>
+  <div *ngFor="let employee of employees" class="flex">
+    <div>
+      {{employee.firstName}} {{employee.lastName}}    
+      <button (click)="add(employee)">Add</button>
+  </div>
+  </div>
 </div>

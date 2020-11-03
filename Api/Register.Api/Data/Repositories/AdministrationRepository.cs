@@ -26,7 +26,6 @@ namespace Register.Api.Data.Repositories
         public async Task<int> AddEmployee(Employee employee)
         {
             await _context.Employees.AddAsync(employee);
-            await _context.SaveChangesAsync();
 
             return employee.Id;
         }
@@ -39,6 +38,11 @@ namespace Register.Api.Data.Repositories
         public async Task<List<Employee>> FindEmployees(string firstName, string lastName)
         {
             return await _context.Employees.Where(x => x.FirstName == firstName && x.LastName == lastName).ToListAsync();
+        }
+
+        public async Task<List<Employee>> FindEmployees(string src)
+        {
+            return await _context.Employees.Where(x => x.FirstName.Contains(src) || x.LastName.Contains(src)).ToListAsync();
         }
 
         public async Task<List<Company>> GetCompanies()
@@ -57,7 +61,7 @@ namespace Register.Api.Data.Repositories
 
         public async Task<List<EmployeeCompany>> GetEmployees(int companyId)
         {
-            return await _context.EmployeeCompanies.Where(x => x.CompanyId == companyId).ToListAsync();
+            return await _context.EmployeeCompanies.Where(x => x.CompanyId == companyId).Include(e => e.Employee).ToListAsync();
         }
 
         public async Task<List<Visit>> GetVisitors()
@@ -96,6 +100,17 @@ namespace Register.Api.Data.Repositories
             _context.Remove(await _context.Companies.Where(x => x.Id == companyId).FirstOrDefaultAsync());
         }
 
+        public async Task RemoveEmployee(int employeeId)
+        {
+            List<EmployeeCompany> employeeCompanies = await _context.EmployeeCompanies.Where(x => x.EmployeeId == employeeId).ToListAsync();
+
+            foreach (EmployeeCompany removeEmployeeCompany in employeeCompanies)
+            {
+                await RemoveEmployeeFromCompany(removeEmployeeCompany.EmployeeId, removeEmployeeCompany.CompanyId);
+            }
+            _context.Remove(await _context.Employees.Where(x => x.Id == employeeId).FirstOrDefaultAsync());
+        }
+
         public async Task RemoveEmployeeFromCompany(int employeeId, int companyId)
         {
             _context.Remove(await _context.EmployeeCompanies.Where(x => x.EmployeeId == employeeId && x.CompanyId == companyId).FirstOrDefaultAsync());
@@ -106,6 +121,11 @@ namespace Register.Api.Data.Repositories
         public async Task<Company> GetCompanyById(int Id)
         {
             return await _context.Companies.Where(x => x.Id == Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Employee> GetEmployeeById(int Id)
+        {
+            return await _context.Employees.Where(x => x.Id == Id).FirstOrDefaultAsync();
         }
     }
 }

@@ -20,14 +20,14 @@ export class EmployeesComponent implements OnInit {
       this.getEmployees();
     }
   
-    //fillCompany(company: Company){
-      //this.company = company;
-      //this.new = true;
-    //}
+    fillCompany(employee: Employee){
+      this.employee = employee;
+      this.new = true;
+    }
   
     searchEmployees(search){
       this.new = false;
-      this.employeeService.searchCompanies(search).subscribe((employees: Employee[]) => {
+      this.employeeService.searchemployees(search).subscribe((employees: Employee[]) => {
         this.employees = employees;
       }, error => {
         console.log(error);
@@ -43,12 +43,12 @@ export class EmployeesComponent implements OnInit {
     }
   
     cancelEdit(state: boolean){
-      //this.getCompanies();
+      this.getEmployees();
       this.new = state;
     }
   
     addCompany(){
-     // this.company = null;
+      this.employee = null;
       this.new = true;
     }
 }

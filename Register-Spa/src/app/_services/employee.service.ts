@@ -19,10 +19,13 @@ getEmployees(): Observable<Employee[]> {
 }
 
 searchemployees(search): Observable<Employee[]> {
-  return this.http.get<Employee[]>(this.baseUrl + 'administration/getcompanies/' + search);
+  return this.http.get<Employee[]>(this.baseUrl + 'administration/getemployees/' + search);
 }
 
-addCompany(employee: Employee){
-  return this.http.post(this.baseUrl + 'administration/addcompany', employee);
+addEmployee(employee: Employee){
+  return this.http.post(this.baseUrl + 'administration/addemployee', employee);
+}
+removeEmployee(companyId: number){
+  return this.http.delete(this.baseUrl + 'administration/removeemployee/' + companyId);
 }
 }

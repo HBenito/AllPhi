@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Company } from '../_models/company';
+import { Employee } from '../_models/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,16 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.baseUrl + 'administration/addcompany', company);
   }
 
+  addEmployeeToCompany(companyId: number, employeeId: number){
+    return this.http.post(this.baseUrl + 'administration/addexistingemployee/' + employeeId + '/', companyId);
+  }
+
   updateCompany(company){
 
+  }
+
+  getCompanyEmployees(companyId: number){
+    return this.http.get<Employee[]>(this.baseUrl + 'administration/getcompanies/' + companyId);
   }
 
   removeCompany(companyId: number){
